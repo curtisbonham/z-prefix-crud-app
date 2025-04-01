@@ -11,4 +11,12 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
+app.get('/users', (req, res) => {
+  knex('user')
+    .select('*')
+    .then(data => {
+      res.status(200).json(data); 
+    })
+})
+
 app.listen(PORT, () => console.log(`Server is listening at http://localhost:${PORT}`));
