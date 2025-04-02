@@ -24,3 +24,12 @@
 .guest-container h1 {
   color: darkblue;
 }
+.logout-btn {
+  width: 100px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 6px;
+  background-color: slategray;
+  color: white;
+  cursor: pointer; 
+}

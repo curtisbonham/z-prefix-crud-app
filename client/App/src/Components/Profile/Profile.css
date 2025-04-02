@@ -17,10 +17,24 @@
 .inventory-btn {
   width: 80%;
   margin: 5px;
+  background: slategray;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
 }
 #allInventory-btn {
   margin-bottom: 30px;
 }
 .profile-container h1 {
   color: darkblue;
+}
+
+.add-btn {
+  width: 100px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 6px;
+  background-color: slategray;
+  color: white;
+  cursor: pointer
 }

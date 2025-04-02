@@ -22,9 +22,13 @@ function AllInventoryTable({allInventory}) {
     {
       accessorKey: 'description',
       header: 'Description',
-      cell: ({ getValue }) => {
-        const value = getValue();
-        return value && value.length > 100 ? `${value.substring(0, 100)}...` : value;
+      cell: ({ row }) => {
+        const value = row.original.description;
+        return (
+          <div title={value}>
+          {value && value.length > 100 ? `${value.substring(0, 100)}...` : value}
+          </div>
+        );
       },
     },
   ];
@@ -55,10 +59,13 @@ function AllInventoryTable({allInventory}) {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map(row => (
+        {table.getRowModel().rows.map((row) => (
           <tr key={row.id}>
-            {row.getVisibleCells().map(cell => (
-              <td key={cell.id}>{cell.getValue()}</td>
+            {row.getVisibleCells().map((cell) => (
+              <td key={cell.id}>
+                {cell.column.columnDef.cell
+                ? cell.column.columnDef.cell(cell)
+              : cell.getValue()}</td>
             ))}
           </tr>
         ))}

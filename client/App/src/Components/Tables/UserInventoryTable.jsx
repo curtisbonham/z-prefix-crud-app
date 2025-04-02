@@ -194,7 +194,7 @@ function UserInventoryTable({ userInventory, user }) {
                 </td>
               ))}
               <td>
-                <button onClick={() => deleteItem(row.original.id)}>Delete</button>
+                <button className='delete-btn' onClick={() => deleteItem(row.original.id)}>Delete</button>
               </td>
             </tr>
           ))}

@@ -73,7 +73,6 @@ const addNewItem = () => {
     })
     .then(res => res.json())
     .then(data => {
-      console.log('Item added:', data);
       alert('Item added successfully');
     })
     .catch(err => {
@@ -101,7 +100,7 @@ const logout = () => {
         <div className='inventory-container'>
         <button className='add-btn' id='addNewItem-btn' onClick={addNewItem}>Add New Item</button>
           <button className='inventory-btn' id='userInventory-btn' onClick={getUserInventory}>
-            Get {user.first_name}'s Inventory
+            Get {user.firstname}'s Inventory
           </button>
 
           {userInventoryToggled && (
