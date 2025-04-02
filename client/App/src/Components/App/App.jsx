@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react'
 import {Link, Route, Routes} from 'react-router-dom'
 import './App.css'
 import LoginSignUp from '../LoginSignup/LoginSignUp.jsx'
-import UserInventory from '../UserInventory/UserInventory.jsx'
-import AllInventory from '../AllInventory/AllInventory.jsx'
 import Profile from '../Profile/Profile.jsx'
+import Guest from '../Profile/Guest.jsx'
 
 
 function App() {
@@ -14,9 +13,8 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<LoginSignUp />}/>
-        <Route path='/userinventory' element={<UserInventory />} />
-        <Route path='/allinventory' element={<AllInventory />} />
         <Route path='/profile/:id' element={<Profile />} />
+        <Route path='/guest' element ={<Guest />} />
       </Routes>
     </>
   )

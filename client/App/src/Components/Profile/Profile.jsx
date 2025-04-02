@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react'
-import {Link, Route, Routes} from 'react-router-dom'
 import * as React from "react";
 import './Profile.css'
-
+import UserInventoryTable from '../Tables/UserInventoryTable.jsx'
+import AllInventoryTable from '../Tables/AllInventoryTable.jsx'
 
 function Profile() {
 
 const [user, setUser] = useState(null)
-const [inventory, setInventory] = useState([])
+const [userInventory, setUserInventory] = useState([])
+const [allInventory, setAllInventory] = useState([])
+const [userInventoryToggled, setUserInventoryToggled] = useState(false)
+const [allInventoryToggled, setAllInventoryToggled] = useState(false)
+
 useEffect(() => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
   setUser(storedUser);
@@ -17,66 +21,111 @@ if(!user) {
   return <div>Loading...</div>
 }
 
+//HANDLES GETTING SPECIFIC USER INVENTORY
 const getUserInventory = async () => {
-  try {
-    const response = await fetch(`http://localhost:3001/user/$user.id/inventory`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(loginData)
-    })
-    if(response.ok){
-      const data = await response.json();
+    setUserInventoryToggled(!userInventoryToggled)
+    const response = await fetch(`http://localhost:3001/user/${user.id}/inventory`)
+      .then(res => res.json())
+      .then(data => {
         if(data.length === 0){
-          return <div>No inventory found for this user.</div>
-        } else {
-          data.map(item => setInventory(item))
+          return <div>No inventory found for {user.firstname} {user.lastname}</div>
+        } else {setUserInventory(data)}
+      })
+    .catch(err => {
+      console.error('Error fetching user inventory:', err);
+    })
+  }
 
-          const datta = React.useMemo(() => data, []);
-          const columns = React.useMemo(() => [])
-
-          // {
-          //   Header: 'Item Name',
-          //   accessor: 'itemName',
-          // },
-
-          // {
-          //   Header: 'Quantity',
-          //   accessor: 'quantity',
-          // },
-          // {
-          //   Header: 'Item Decription',
-          //   accessor: 'itemDescription',
-
-          // },
-
-          }
-        }
-
-      }catch(error){
-        console.error('Error:', error)
-      }
+//HANDLES GETTING ALL INVENTORY
+const getAllInventory = async () => {
+  setAllInventoryToggled(!allInventoryToggled)
+  const response = await fetch('http://localhost:3001/inventory')
+  .then(res => res.json())
+  .then(data => {
+    if(data.length === 0){
+      return <div>No inventory found</div>
+    } else {
+      setAllInventory(data)
+    }
+  })
+  .catch(err => {
+    console.error('Error fetching all inventory:', err);
+  })
 }
+
+//HANDLES ADDING NEW ITEMS TO USER INVENTORY
+const addNewItem = () => {
+  const itemname = prompt('Enter item name:');
+  const description = prompt('Enter item description:');
+  const quantity = prompt('Enter item quantity:');
+
+  if(itemname && description && quantity) {
+    fetch(`http://localhost:3001/addItem/${user.id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        itemname,
+        description,
+        quantity,
+      }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log('Item added:', data);
+      alert('Item added successfully');
+    })
+    .catch(err => {
+      console.error('Error adding item:', err);
+    });
+  } else {
+    alert('Please fill in all fields');
+  }
+}
+
+//HANDLES LOGOUT
+const logout = () => {
+  localStorage.removeItem('user');
+  setUser(null);
+  window.location.href = '/';
+}
+
   return (
     <>
-    <div className='container'>
-      <h1>{user.firstName}'s Profile</h1>
-        <table {...getTableProps()}>
-          <thead>
-             {headerGroups.map((headerGroup) => (
-               <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render('Header')}
-                    </th>
-                    ))}
-                  </tr>
-                ))}
-                </thead>
-                <tbody></tbody>
-            </table>
-          </div>
+      <div className='profile-container'>
+        <div className='header'>
+          <button className='logout-btn' onClick={logout}>Logout</button>
+          <h1>Welcome, {user.firstname} {user.lastname}!</h1>
+        </div>
+        <div className='inventory-container'>
+        <button className='add-btn' id='addNewItem-btn' onClick={addNewItem}>Add New Item</button>
+          <button className='inventory-btn' id='userInventory-btn' onClick={getUserInventory}>
+            Get {user.first_name}'s Inventory
+          </button>
+
+          {userInventoryToggled && (
+            <div className='inventory'>
+              {!userInventory.length > 0 ? (
+                <div>No inventory found for {user.firstname} {user.lastname}</div>
+              ) : (
+                Array.isArray(userInventory) && userInventory.length > 0 && (
+               <UserInventoryTable userInventory={userInventory} user={user}/>
+                )
+              )}
+               </div>
+              )}
+
+          <button className='inventory-btn' id='allInventory-btn' onClick={getAllInventory}>
+            Get All Inventory
+          </button>
+          {allInventoryToggled && (
+            <div className='inventory'>
+              <AllInventoryTable allInventory={allInventory} />
+            </div>
+          )}
+        </div>
+      </div>
     </>
   )
 }
