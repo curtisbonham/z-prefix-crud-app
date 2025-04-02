@@ -74,27 +74,28 @@ const LoginSignUp = () => {
     }
   };
 
-  const handleGuest = () => {
-    fetch('http://localhost:3001/inventory', {
-      method: 'GET',
+  const handleGuest = async () => {
+    const loginGuest = {username : 'Guest', password: 'Guest'}
+    try{
+    const response = await fetch('http://localhost:3001/login/auth', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(loginGuest)
     })
-    .then(response => {
-      if(response.ok){
-        return response.json();
-      } else {
-        throw new Error('Guest login failed');
-      }
-    })
-    .then(data => {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+    if(response.ok){
+      const data = await response.json();
       window.location.href='/guest';
-    })
+    }else{
+      const errorData = await response.json();
+      alert(errorData.message || 'Login failed');
+    }
+  }catch(error){
+    console.error('Error:', error)
+    alert('An error occurred during login. Please try again later.')
   }
+};
 
 
   return (
@@ -121,7 +122,7 @@ const LoginSignUp = () => {
       <div className='submit-container'>
         <div className={action === "Login" ? "submit gray":"submit"} onClick={()=>{handleSignup()}}>Sign Up</div>
         <div className={action === "Sign Up" ? "submit gray": "submit"} onClick={()=>{ handleLogin(userNameReg, passwordReg)}}>Login</div>
-        <div className="submit gray" onClick={()=>{ handleGuest}}>Guest</div>
+        <div className="submit gray" onClick={()=>handleGuest()}>Guest</div>
       </div>
     </div>
     </>

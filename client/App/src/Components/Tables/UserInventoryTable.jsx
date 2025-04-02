@@ -12,28 +12,6 @@ function UserInventoryTable({ userInventory, user }) {
   const [data, setData] = useState(userInventory);
   const [editingCell, setEditingCell] = useState(null);
 
-  //HANDLES FETCHING THE USER AUTOMATICALLY INVENTORY WHEN A CHANGE IS MADE
-  // const fetchInventory = () => {
-  //   fetch(`http://localhost:3001/user/${user.id}/inventory`)
-  //     .then((response) => {
-  //       if(!response.ok){
-  //         throw new Error('Failed to fetch inventory');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       setData(data);
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error fetching inventory:', error)
-  //       })
-  // }
-
-  //USEEFFECT TO FETCH USER INVENTORY WHEN COMPONENT MOUNTS
-  // useEffect(() => {
-  //   fetchInventory();
-  // }, []);
-
   //HANDLES ALLOWING THE USER TO TYPE WHILE MAKING EDITS IN THE TABLE
   const handleLocalEdit = (rowIndex, columnId, value) => {
     const updatedInventory = [...data];
@@ -170,9 +148,8 @@ function UserInventoryTable({ userInventory, user }) {
             />
           ) : (
             <div
-              title={value} // Tooltip to show the full text
-              onDoubleClick={() => setEditingCell({ rowIndex: row.index, columnId: column.id })}
-            >
+              title={value}
+              onDoubleClick={() => setEditingCell({ rowIndex: row.index, columnId: column.id })}>
               {value && value.length > 100 ? `${value.substring(0, 100)}...` : value}
             </div>
           );

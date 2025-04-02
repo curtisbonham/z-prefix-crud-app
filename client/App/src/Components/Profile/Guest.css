@@ -1,0 +1,26 @@
+.guest-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1200px;
+  height: auto;
+  background: lightgray;
+}
+.inventory-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+.inventory-btn {
+  width: 80%;
+  margin: 5px;
+}
+#allInventory-btn {
+  margin-bottom: 30px;
+}
+.guest-container h1 {
+  color: darkblue;
+}
