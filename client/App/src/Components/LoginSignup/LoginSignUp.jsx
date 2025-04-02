@@ -43,17 +43,6 @@ const LoginSignUp = () => {
 
   };
 
-  // const saveToken = (token) => {
-  //   localStorage.setItem('token', JSON.stringify(userToken));
-  // }
-
-  // const getToken = () => {
-  //   const tokenString = localStorage.getItem('token');
-  //   const userToken = JSON.parse(tokenString);
-  //   return userToken?.token
-
-  // }
-
   const handleLogin = async (d) =>  {
     setAction("Login")
 
@@ -74,11 +63,10 @@ const LoginSignUp = () => {
 
       if(response.ok){
         const data = await response.json();
-        alert('Login successful')
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
 
-        window.location.href=`/profile/${data.user.userName}`;
+        window.location.href=`/profile/${data.user.id}`;
       }else{
         const errorData = await response.json();
         alert(errorData.message || 'Login failed');
