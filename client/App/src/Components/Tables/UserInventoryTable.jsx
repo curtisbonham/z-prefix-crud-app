@@ -77,7 +77,13 @@ export default function UserInventoryTable({ userInventory, user }) {
       return response.json();
     })
     .then((data) => {
+      if(Array.isArray(data)){
       setData(data.filter(item => item.id !== id));
+
+    } else {
+      console.error('Unexpected response format:', data)
+    }
+    alert('Item successfully deleted!')
     })
     .catch((error) => {
       console.error('Error deleting item:', error);
