@@ -116,10 +116,11 @@ export default function UserInventoryTable({ userInventory, user }) {
         header: 'Quantity',
         cell: ({ row, column }) => {
           const isEditing = editingCell?.rowIndex === row.index && editingCell?.columnId === column.id;
+          const value = row.original[column.id];
           return isEditing ? (
             <input
               type="number"
-              value={row.original[column.id]}
+              value={value}
               onChange={(e) => handleLocalEdit(row.index, column.id, e.target.value)}
               onBlur={(e) => handleBlur(row.index, column.id, e.target.value)}
               onKeyDown={(e) => handleKeyDown(e, row.index, column.id, e.target.value)}
@@ -127,7 +128,7 @@ export default function UserInventoryTable({ userInventory, user }) {
             />
           ) : (
             <div onClick={() => setEditingCell({ rowIndex: row.index, columnId: column.id })}>
-              {row.original[column.id]}
+              {value?.toLocaleString()}
             </div>
           );
         },

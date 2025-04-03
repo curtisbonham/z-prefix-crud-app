@@ -33,11 +33,12 @@ export default function Details() {
     <>
     <div className='details-container'>
       <button className='back-btn' onClick={()=>navigate(-1)}>Back</button>
-      <h2 className='details-title'>Details for {data.itemname}</h2>
+      <h1 className='details-title'>Details for:</h1>
+      <h2 className='item-name'>{data.itemname}</h2>
       <div className='details-para'>
         <p><strong>Inventory Manager:</strong> {data.firstname} {data.lastname}</p>
         <p><strong>Item Name:</strong> {data.itemname}</p>
-        <p><strong>Quantity</strong>: {data.quantity}</p>
+        <p><strong>Quantity</strong>: {data.quantity?.toLocaleString()}</p>
         <p><strong>Description</strong>: {data.description}</p>
       </div>
     </div>

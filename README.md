@@ -85,4 +85,4 @@ PG_DB_HOST=**Input the URL your computer is communicating on, it is typically lo
 
 ## Author
 
-Curtis Bonham
+[Curtis Bonham]('https://github.com/curtisbonham')

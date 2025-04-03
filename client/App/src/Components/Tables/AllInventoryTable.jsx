@@ -19,6 +19,10 @@ export default function AllInventoryTable({allInventory}) {
     {
       accessorKey: 'quantity',
       header: 'Quantity',
+      cell: ({ row }) => {
+        const value = row.original.quantity;
+        return <div>{value?.toLocaleString()}</div>;
+      }
     },
     {
       accessorKey: 'description',
