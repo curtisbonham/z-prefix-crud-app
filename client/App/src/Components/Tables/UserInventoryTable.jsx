@@ -1,5 +1,6 @@
-import { useState, useMemo, useEffect } from 'react';
-import './UserInventoryTable.css';
+import { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom'
+import './InventoryTable.css';
 import {
   useReactTable,
   getCoreRowModel,
@@ -8,7 +9,10 @@ import {
   getExpandedRowModel,
 } from '@tanstack/react-table';
 
-function UserInventoryTable({ userInventory, user }) {
+export default function UserInventoryTable({ userInventory, user }) {
+  
+  const navigate = useNavigate();
+
   const [data, setData] = useState(userInventory);
   const [editingCell, setEditingCell] = useState(null);
 
@@ -63,7 +67,6 @@ function UserInventoryTable({ userInventory, user }) {
 
   //HANDLES DELETING AN ITEM FROM THE USER INVENTORY
   const deleteItem = (id) => {
-    console.log('Deleting item with ID:', id);
     fetch(`http://localhost:3001/deleteItem/${user.id}/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -73,10 +76,8 @@ function UserInventoryTable({ userInventory, user }) {
         throw new Error('Failed to delete item');
       }
       return response.json();
-    }
-    )
+    })
     .then((data) => {
-      console.log('Delete successful', data);
       setData(data.filter(item => item.id !== id));
     })
     .catch((error) => {
@@ -187,7 +188,9 @@ function UserInventoryTable({ userInventory, user }) {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td key={cell.id}
+                onClick={() => navigate(`/details/item/${row.original.id}`)}>
+
                   {cell.column.columnDef.cell
                     ? cell.column.columnDef.cell(cell)
                     : cell.getValue()}
@@ -203,5 +206,3 @@ function UserInventoryTable({ userInventory, user }) {
     </>
   );
 }
-
-export default UserInventoryTable;

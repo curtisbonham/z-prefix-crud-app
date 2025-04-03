@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
-import * as React from "react";
+import React, { useState, useEffect } from 'react'
 import './Profile.css'
 import UserInventoryTable from '../Tables/UserInventoryTable.jsx'
 import AllInventoryTable from '../Tables/AllInventoryTable.jsx'
 
-function Profile() {
+export default function Profile() {
 
 const [user, setUser] = useState(null)
 const [userInventory, setUserInventory] = useState([])
@@ -128,5 +127,3 @@ const logout = () => {
     </>
   )
 }
-
-export default Profile

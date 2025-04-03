@@ -212,9 +212,33 @@ app.get('/inventory', (req, res) => {
       .catch((err) => {
         console.error('Error deleting item:', err);
         res.status(500).json({
-          message: 'An error occurred while deleting the item. Please try again later.',
+          message: 'An error occurred while deleting the item. Please try again later.'
         });
       })
-        })
+  })
+
+  //ENDPOINT TO GET A SPECIFIC ITEM DETAILS
+  app.get('/details/item/:id', (req, res) => {
+    const id = req.params.id
+
+    if(!id){
+      return res.status(400).json({
+        message: 'Item not found'
+      });
+    }
+    knex('item')
+      .join('user', 'user.id', '=', 'item.userid' )
+      .select('user.firstname', 'user.lastname', 'item.userid', 'item.id', 'item.itemname', 'item.quantity', 'item.description')
+      .where('item.id', id)
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch((err) => {
+        console.error('Error retrieving item details:', err);
+        res.status(500).json({
+          message: 'An error occurred while retrieving the item details. Please try again later'
+        });
+      })
+  })
 
 app.listen(PORT, () => console.log(`Server is listening at http://localhost:${PORT}`));

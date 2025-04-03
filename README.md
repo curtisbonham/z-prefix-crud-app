@@ -8,7 +8,7 @@ This is my submission for the CRUD application portion of the z-prefix assessmen
 docker run --rm --name pg-docker -e POSTGRES_PASSWORD=(INPUT YOUR OWN PASSWORD) -d -p 5432:5432 \ -v $HOME/docker/volumes/postgres : /ver/lib/postgresql/data postgres
 ```
 
-**MAKE NOTE** the "INPUT YOUR OWN PASSWORD" does NOT indicate that is the password, ensure you configure your docker with a password you will remember.
+**NOTE** the "INPUT YOUR OWN PASSWORD" does NOT indicate that is the password, ensure you configure your docker with a password you will remember.
 
 2. You will now need to run:
 
@@ -54,7 +54,7 @@ PG_DB_HOST=**Input the URL your computer is communicating on, it is typically lo
 
 4. To view inventory that is associated with you as the user, simply click the **Get "Your first name" Inventory** button. If you have inventory, it will show up in an editable table. If you do not have inventory, it will say "No inventory found for 'Your first name last name'".
 
-5. If you do not have any inventory, click the **Add New Item** button.
+5. If you do not have any inventory or would like to add new items to your inventory, click the **Add New Item** button.
 
       -- This will give you a prompt to enter the item name. Enter the name of the item you wish then hit OK
 
@@ -70,13 +70,17 @@ PG_DB_HOST=**Input the URL your computer is communicating on, it is typically lo
 
       -- Once your change is made, either hit enter or click off of the field to save the changes.
 
-      -- If you no longer with to have the item in your inventory anymore, simply click the **Delete** button.
+      -- If you no longer wish to have the item in your inventory, simply click the **Delete** button.
 
-      -- **NOTE:** you may need to refresh your inventory table to see any changes by toggling the table closed and then open it again.
+      -- **NOTE:** You may need to refresh your inventory table to see any changes by toggling the table closed and then open it again.
 
-7.  To view all of the items that inventory managers have input into the database, simply click the **Get All Inventory** button. This will bring up all inventory items in an uneditable table.
+7.  To view all of the items that inventory managers have input into the database, simply click the **Get All Inventory** button. This will bring up all inventory items in an uneditable table. You can even see your items you just added in that table as well.
+
+      -- **NOTE:** You may need to refresh the inventory table to see any changes that you made in your inventory by toggling the table closed and then open it again.
 
 8.  You may have noticed that for long descriptions, you do not see the whole string of text. If you want to see all of the details of any item, simply click the row and you will be directed to a details page where you can review all of the item's details.
+
+9.  Lastly, have fun managing your inventory! This app will surely make your life a whole lot easier!
 
 
 ## Author

@@ -1,0 +1,17 @@
+.details-title{
+  color: white
+}
+
+.details-para p {
+  color: white;
+}
+
+.back-btn{
+  width: 100px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 6px;
+  background-color: slategray;
+  color: white;
+  cursor: pointer
+}

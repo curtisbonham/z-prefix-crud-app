@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react'
-import {Link, Route, Routes} from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import LoginSignUp from '../LoginSignup/LoginSignUp.jsx'
 import Profile from '../Profile/Profile.jsx'
 import Guest from '../Profile/Guest.jsx'
+import Details from '../Details/Details.jsx'
 
-
-function App() {
+export default function App() {
 
 
   return (
@@ -15,9 +14,9 @@ function App() {
         <Route path='/' element={<LoginSignUp />}/>
         <Route path='/profile/:id' element={<Profile />} />
         <Route path='/guest' element ={<Guest />} />
+        <Route path='/details/item/:id' element={<Details />}/>
       </Routes>
     </>
   )
 }
 
-export default App

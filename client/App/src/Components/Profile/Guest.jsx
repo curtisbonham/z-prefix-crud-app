@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
-import * as React from "react";
+import React, { useState, useEffect } from 'react'
 import './Guest.css'
 import AllInventoryTable from '../Tables/AllInventoryTable.jsx'
 
-function Guest() {
+export default function Guest() {
 
 const [allInventory, setAllInventory] = useState([])
 
@@ -48,5 +47,3 @@ const logout = () => {
     </>
   )
 }
-
-export default Guest

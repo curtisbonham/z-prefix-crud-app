@@ -1,9 +1,9 @@
 import React from 'react'
-import {useState,  useRef} from 'react'
+import { useState } from 'react'
 import './LoginSignUp.css'
 
-const LoginSignUp = () => {
-  const userRef = useRef();
+export default function LoginSignUp ()  {
+
   const [action, setAction] = useState("Sign Up");
   const [firstNameReg, setFirstNameReg] = useState("")
   const [lastNameReg, setLastNameReg] = useState("")
@@ -97,7 +97,6 @@ const LoginSignUp = () => {
   }
 };
 
-
   return (
     <>
     <div className='login-container' >
@@ -106,7 +105,7 @@ const LoginSignUp = () => {
       </div>
       <div className='inputs'>
         {action === "Login"?<div></div>: <div className='input'>
-          <input type='text' ref={userRef} placeholder='First Name...' onChange={(e)=>{setFirstNameReg(e.target.value)}}/>
+          <input type='text' placeholder='First Name...' onChange={(e)=>{setFirstNameReg(e.target.value)}}/>
         </div>}
         {action === "Login"?<div></div>: <div className='input'>
           <input type='text' placeholder='Last Name...' onChange={(e)=>{setLastNameReg(e.target.value)}}/>
@@ -128,5 +127,3 @@ const LoginSignUp = () => {
   )
 
 }
-
-export default LoginSignUp;

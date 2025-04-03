@@ -19,5 +19,14 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-  background-color: #f1f1f1;
+  background-color: #5391f7;
+}
+
+.delete-btn {
+  background-color: maroon;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 6px;
 }

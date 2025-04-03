@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
-import {Link, Route, Routes} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel,  getExpandedRowModel,  } from '@tanstack/react-table';
-import './AllInventoryTable.css'
+import './InventoryTable.css'
 
 
-function AllInventoryTable({allInventory}) {
+export default function AllInventoryTable({allInventory}) {
+
+  const navigate = useNavigate();
 
   const columns = [
     {
@@ -60,7 +61,9 @@ function AllInventoryTable({allInventory}) {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
+          <tr key={row.id}
+          onClick={() => navigate(`/details/item/${row.original.id}`)}
+          >
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id}>
                 {cell.column.columnDef.cell
@@ -75,4 +78,3 @@ function AllInventoryTable({allInventory}) {
   )
 }
 
-export default AllInventoryTable
