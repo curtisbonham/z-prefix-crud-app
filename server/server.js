@@ -8,31 +8,6 @@ const knex = require('knex')(require('./knexfile')[process.env.NODE_ENV || 'deve
 app.use(express.json());
 app.use(cors());
 
-
-app.get('/login', (req, res) => {
-  knex('user')
-    .select('username', 'password')
-    .then(data => {
-      res.status(200).json(data);
-    })
-})
-
-app.get('/users', (req, res) => {
-  knex('user')
-    .select('*')
-    .then(data => {
-      res.status(200).json(data);
-    })
-})
-
-app.get('/items', (req, res) => {
-  knex('item')
-  .select('*')
-  .then(data => {
-    res.status(200).json(data)
-  })
-})
-
 //ENDPOINT FOR SIGNUP BUTTON
 app.post('/signup', async (req, res) => {
   const {firstname, lastname, username, password} = req.body;
