@@ -1,6 +1,5 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = 3001;
 const cors = require('cors');
@@ -35,36 +34,40 @@ app.get('/items', (req, res) => {
 })
 
 //ENDPOINT FOR SIGNUP BUTTON
-app.post('/signup', (req, res) => {
+app.post('/signup', async (req, res) => {
   const {firstname, lastname, username, password} = req.body;
-  // const hashedPassword =  bcrypt.hash(password, 10);
+  const saltRounds = 10;
+
 
   if(!firstname || !lastname || !username ||!password){
     return res.status(400).json({
       message: 'Name, Username, and Password are required for Sign Up'
     });
   }
+
+  const hashedPassword =  await bcrypt.hash(password, saltRounds)
+
   knex('user')
-  .insert({firstname, lastname, username, password})
+  .insert({firstname, lastname, username, password: hashedPassword})
   .returning('*')
   .then((data) => {
     res.status(201).json({
       message: 'Sign Up Successful!',
       data: data[0],
     });
+
   })
   .catch((err) => {
     console.error('Error with signing up:', err);
     res.status(500).json({
       message: 'An error occurred while signing up. Please try again later.'
-    });
+  });
 });
 });
 
 //ENDPOINT FOR LOGIN BUTTON
 app.post('/login/auth', async (req, res) => {
   const { username, password} = req.body;
-  // const hashedPassword =  bcrypt.hash(password, 10);
 
   if(!username || !password){
     return res.status(400).json({
@@ -76,17 +79,13 @@ app.post('/login/auth', async (req, res) => {
   if(!user){
     return res.status(401).json({message: 'Invalid Username'});
   }
-  if(user.password !== password) {
+  const isValidPassword = await bcrypt.compare(password, user.password);
+  if(!isValidPassword) {
     return res.status(401).json({message: 'Invalid Password'});
   }
-  const token = jwt.sign(
-    {id: user.id, username: user.username},
-    process.env.JWT_SECRET || 'default secret',
-    {expiresIn: '1h'}
-  );
+
   res.status(200).json({
     message: 'Login Successful!',
-    token,
     user: {
       id: user.id,
       username: user.username,
@@ -99,8 +98,7 @@ app.post('/login/auth', async (req, res) => {
   res.status(500).json({
     message: 'An error occurred during login. Please try again later.'
   });
- }
-});
+ }});
 
 //ENDPOINT FOR GETTING SPECIFIC USER INVENTORY
 app.get('/user/:id/inventory', (req, res) => {
