@@ -72,7 +72,7 @@ const addNewItem = () => {
     })
     .then(res => res.json())
     .then(data => {
-      alert('Item added successfully');
+      alert('Item added successfully! Refresh table to see changes.');
     })
     .catch(err => {
       console.error('Error adding item:', err);
