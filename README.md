@@ -42,7 +42,7 @@ PG_DB_HOST=**Input the URL your computer is communicating on, it is typically lo
 
 1. When you spin up the app, you will be directed to the Sign-up page. Enter your **First Name**, **Last Name** and choose a **Username** and **Password** and click the **Sign Up** button.
 
-      -- Clicking the **Sign Up** button creates your account and saves your user information in the database
+      -- Clicking the **Sign Up** button creates your account and saves your user information in the database and our password is encrypted.
 
       -- If you do not wish to sign up, but want to see all of the inventory items, simply click the **Guest** button and you will be taken to a table with all of the items entered by all inventory managers.
 
@@ -72,7 +72,7 @@ PG_DB_HOST=**Input the URL your computer is communicating on, it is typically lo
 
       -- If you no longer wish to have the item in your inventory, simply click the **Delete** button.
 
-      -- **NOTE:** You may need to refresh your inventory table to see any changes by toggling the table closed and then open it again.
+      -- **NOTE:** You may need to refresh your inventory table to see any changes by toggling the table closed and then open it again. This includes all actions of adding, editing, and deleting items. 
 
 7.  To view all of the items that inventory managers have input into the database, simply click the **Get All Inventory** button. This will bring up all inventory items in an uneditable table. You can even see your items you just added in that table as well.
 
