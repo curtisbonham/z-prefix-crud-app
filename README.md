@@ -66,7 +66,7 @@ PG_DB_HOST=**Input the URL your computer is communicating on, it is typically lo
 
 6. You should now see the item added to your inventory in a table with the item's ID, Item Name, Quantity, Description, and a **Delete** button.
 
-      -- If you made a mistake and wish to edit any item field, simply double-click on the field you wish to edit. For example, if you input the wrong quantity simply double-click the number in the quantity column which will then allow you to make a change. The only field that is not editable is the item's ID field as that is hardset by the database.
+      -- If you made a mistake and wish to edit any item field, simply **single-click** on the field you wish to edit. For example, if you input the wrong quantity simply **single-click** the number in the quantity column which will then allow you to make a change. The only field that is not editable is the item's ID field as that is hardset by the database.
 
       -- Once your change is made, either hit enter or click off of the field to save the changes.
 
@@ -78,7 +78,7 @@ PG_DB_HOST=**Input the URL your computer is communicating on, it is typically lo
 
       -- **NOTE:** You may need to refresh the inventory table to see any changes that you made in your inventory by toggling the table closed and then open it again.
 
-8.  You may have noticed that for long descriptions, you do not see the whole string of text. If you want to see all of the details of any item, simply click the row and you will be directed to a details page where you can review all of the item's details.
+8.  You may have noticed that for long descriptions, you do not see the whole string of text. If you want to see all of the details of any item, simply **double-click** the row in the **user inventory** table or **single-click** in the **all inventory** table and you will be directed to a details page where you can review all of the item's details.
 
 9.  Lastly, have fun managing your inventory! This app will surely make your life a whole lot easier!
 

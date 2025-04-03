@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import './InventoryTable.css';
 import {
@@ -10,11 +10,12 @@ import {
 } from '@tanstack/react-table';
 
 export default function UserInventoryTable({ userInventory, user }) {
-  
+
   const navigate = useNavigate();
 
   const [data, setData] = useState(userInventory);
   const [editingCell, setEditingCell] = useState(null);
+
 
   //HANDLES ALLOWING THE USER TO TYPE WHILE MAKING EDITS IN THE TABLE
   const handleLocalEdit = (rowIndex, columnId, value) => {
@@ -29,9 +30,7 @@ export default function UserInventoryTable({ userInventory, user }) {
       id: data[rowIndex].id,
       [columnId]: value,
     };
-    console.log('Column ID:', columnId);
-    console.log('Value:', value);
-    console.log('Sending PATCH request with data:', updatedItem);
+
     fetch(`http://localhost:3001/updateInventory/${updatedItem.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -106,7 +105,7 @@ export default function UserInventoryTable({ userInventory, user }) {
               autoFocus
             />
           ) : (
-            <div onDoubleClick={() => setEditingCell({ rowIndex: row.index, columnId: column.id })}>
+            <div onClick={() => setEditingCell({ rowIndex: row.index, columnId: column.id })}>
               {row.original[column.id]}
             </div>
           );
@@ -127,7 +126,7 @@ export default function UserInventoryTable({ userInventory, user }) {
               autoFocus
             />
           ) : (
-            <div onDoubleClick={() => setEditingCell({ rowIndex: row.index, columnId: column.id })}>
+            <div onClick={() => setEditingCell({ rowIndex: row.index, columnId: column.id })}>
               {row.original[column.id]}
             </div>
           );
@@ -150,7 +149,7 @@ export default function UserInventoryTable({ userInventory, user }) {
           ) : (
             <div
               title={value}
-              onDoubleClick={() => setEditingCell({ rowIndex: row.index, columnId: column.id })}>
+              onClick={() => setEditingCell({ rowIndex: row.index, columnId: column.id })}>
               {value && value.length > 100 ? `${value.substring(0, 100)}...` : value}
             </div>
           );
@@ -189,7 +188,7 @@ export default function UserInventoryTable({ userInventory, user }) {
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}
-                onClick={() => navigate(`/details/item/${row.original.id}`)}>
+                onDoubleClick={() => navigate(`/details/item/${row.original.id}`)}>
 
                   {cell.column.columnDef.cell
                     ? cell.column.columnDef.cell(cell)

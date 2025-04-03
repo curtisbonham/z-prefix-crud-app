@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import './Profile.css'
-import UserInventoryTable from '../Tables/UserInventoryTable.jsx'
-import AllInventoryTable from '../Tables/AllInventoryTable.jsx'
+import React, { useState, useEffect } from 'react';
+import './Profile.css';
+import UserInventoryTable from '../Tables/UserInventoryTable.jsx';
+import AllInventoryTable from '../Tables/AllInventoryTable.jsx';
 
 export default function Profile() {
 
@@ -88,6 +88,8 @@ const logout = () => {
   setUser(null);
   window.location.href = '/';
 }
+
+
 
   return (
     <>
