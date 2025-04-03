@@ -188,18 +188,9 @@ app.get('/inventory', (req, res) => {
         });
       })
       .catch((err) => {
-        console.error('Error adding item:', err);
-        if (err.code === '23505') {//restricts data due to duplicate entries (postgresql specific error code)
-          res.status(409).json({
-            message: 'Item already exists in inventory.',
-          });
-        } else {
-          res.status(500).json({
-            message: 'An error occurred while adding the item. Please try again later.',
-          });
-        }
+        console.error('Error adding item:', err)
+        })
       });
-  });
 
   //ENDPOINT TO DELETE ITEM FROM USER INVENTORY
   app.delete('/deleteItem/:userid/:id', (req, res) => {
